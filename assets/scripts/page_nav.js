@@ -13,8 +13,21 @@ function add_links_to_array(link_array) {
 
 page_links = add_links_to_array(page_links);
 
-console.log(page_links);
-
 // on alt+№
 // find a tag[№]
 // click it
+
+// maybe alt+p to just use numbers with no accelerator?
+
+window.addEventListener("keydown", function(event) {
+	if (event.defaultPrevented) {
+		return;  // do nothing if the event was already processed
+	}
+
+	if (/^[1-9]$/.test(event.key)) {  // bit ugly to use regex for this
+		page_links[event.key].click();
+		// cancel the default action to avoid it being handled twice
+		event.preventDefault();
+	}
+
+}, true);  // capture = true - i don't quite understand this
